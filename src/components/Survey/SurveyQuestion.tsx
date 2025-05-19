@@ -1,6 +1,5 @@
 const SurveyQuestion: React.FC = () => {
+  return <></>;
+};
 
-  return <></>
-}
-
-export default SurveyQuestion
+export default SurveyQuestion;

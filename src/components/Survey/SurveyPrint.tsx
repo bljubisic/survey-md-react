@@ -1,6 +1,5 @@
 const SurveyPrint: React.FC = () => {
+  return <></>;
+};
 
-  return <></>
-}
-
-export default SurveyPrint
+export default SurveyPrint;
