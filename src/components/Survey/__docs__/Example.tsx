@@ -1,15 +1,16 @@
 import React, { FC } from "react";
 import SurveyNode, { NodeProps } from "../SurveyNode";
-import { remark } from "remark";
 import remarkParse from "remark-parse";
 import customPlugin from "../customPlugin";
+import { unified } from "unified";
 
 const Example: FC<NodeProps> = async ({ text }) => {
-  const result = await remark()
+  const result = unified()
     .use(remarkParse, { sanitize: false })
     .use(customPlugin);
 
-  console.log(result.parse(text));
+  const modifiedText = await result.run(result.parse(text));
+  console.log(modifiedText);
   return (
     <div
       style={{
