@@ -1,9 +1,15 @@
 import React, { FC } from "react";
 import SurveyNode, { NodeProps } from "../SurveyNode";
+import { remark } from "remark";
+import remarkParse from "remark-parse";
+import customPlugin from "../customPlugin";
 
-const Example: FC<NodeProps> = ({
-  text = '## Hi! Please pick a number.\n  (We shuffle them *every time*)\n\n?mynumber matrix="agree, not agree"\n- 1337\n- [42](https://www.google.com/search?q=42)\n- 7±2\n\n@ mynumber\n[Submit](+)',
-}) => {
+const Example: FC<NodeProps> = async ({ text }) => {
+  const result = await remark()
+    .use(remarkParse, { sanitize: false })
+    .use(customPlugin);
+
+  console.log(result.parse(text));
   return (
     <div
       style={{

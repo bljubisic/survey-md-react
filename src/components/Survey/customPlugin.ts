@@ -1,6 +1,5 @@
 import { visit } from "unist-util-visit";
 import { Root } from "mdast";
-import type { Literal } from "unist";
 
 const checkQuestion = (value: string) => {
   const match = /^\? *(\w[\w]*) *(.*)/.exec(value);
@@ -31,10 +30,11 @@ const questionType = "question";
 const conditionType = "condition";
 const printType = "print";
 
-export default function customPlugin() {
+const customPlugin = () => {
   return (tree: Root) => {
     visit(tree, "text", (node: any) => {
       if (typeof node.value === "string" && checkQuestion(node.value)) {
+        console.log("found it");
         node.type = questionType;
       }
       if (typeof node.value === "string" && checkCondition(node.value)) {
@@ -44,5 +44,8 @@ export default function customPlugin() {
         node.type = printType;
       }
     });
+    console.log(tree);
   };
-}
+};
+
+export default customPlugin;
