@@ -68,9 +68,6 @@ const survey = (tree: Node) => {
     }
     if (!cond) {
       cond = find(node, conditionType, true);
-      // if (cond) {
-      //   node = cond;
-      // }
     }
     if (node.type === questionType) {
       qst = node;
