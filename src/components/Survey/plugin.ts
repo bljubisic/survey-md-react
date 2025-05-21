@@ -1,4 +1,4 @@
-import { Root, type Literal, type Node } from "mdast";
+import { Root, type Literal, type Node, type Parent } from "mdast";
 
 const questionType = "question";
 const conditionType = "condition";
@@ -24,15 +24,54 @@ const mergeHTML = (nodes: [Literal]) => {
   return merged;
 };
 
-const survey = (tree: Root) => {
+interface QuestionNode extends Literal {
+  type: typeof questionType;
+}
+
+const find = (
+  nodes: Node,
+  type: string,
+  remove: boolean,
+): QuestionNode | null => {
+  const node = nodes as Parent;
+  if (node.children) {
+    for (const child of node.children) {
+      const tmpChild = child as Literal;
+      if (tmpChild.type === type) {
+        if (remove) {
+          const index = node.children.indexOf(child, 0);
+          if (index > -1) {
+            node.children.splice(index, 1);
+          }
+        }
+        return tmpChild as QuestionNode;
+      }
+    }
+  }
+  return null;
+};
+
+const survey = (tree: Node) => {
   const pagebreakType = "thematicBreak";
-  const { children } = tree;
+  const { children } = tree as Parent;
   let len = children.length;
   let node: any, qst: any, cond: any;
   let page = { type: "page", children: [] };
   const pages = [];
   for (let i = 0; i < len; i++) {
     node = children[i];
+    if (!qst) {
+      qst = find(node, questionType, false);
+      if (qst) {
+        node = qst;
+      }
+    }
+    if (!cond) {
+      cond = find(node, conditionType, true);
+      // if (cond) {
+      //   node = cond;
+      // }
+    }
     if (node.type === questionType) {
       qst = node;
     } else if (node.type === conditionType) {
