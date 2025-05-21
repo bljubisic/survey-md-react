@@ -1,5 +1,5 @@
 import { visit } from "unist-util-visit";
-import { Root, type Literal, type Node } from "mdast";
+import { Root, type Node } from "mdast";
 
 export interface Question extends Node {
   name: string;
