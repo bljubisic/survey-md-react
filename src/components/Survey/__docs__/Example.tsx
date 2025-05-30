@@ -21,7 +21,7 @@ const Example: FC<NodeProps> = async ({ text }) => {
         height: "100%",
       }}
     >
-      <SurveyNode text={text} />
+      <SurveyNode node={modifiedText} />
     </div>
   );
 };
