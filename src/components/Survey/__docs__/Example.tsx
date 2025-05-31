@@ -5,7 +5,11 @@ import customPlugin from "../customPlugin";
 import survey from "../plugin";
 import { unified } from "unified";
 
-const Example: FC<NodeProps> = async ({ text }) => {
+type CallProps = {
+  text: string;
+};
+
+const Example: FC<CallProps> = async ({ text }) => {
   const result = unified()
     .use(remarkParse, { sanitize: false })
     .use(customPlugin);
@@ -21,7 +25,11 @@ const Example: FC<NodeProps> = async ({ text }) => {
         height: "100%",
       }}
     >
-      <SurveyNode node={modifiedText} />
+      <SurveyNode
+        node={modifiedText as any}
+        context={{}} // Provide appropriate context object here
+        next={() => ({})} // Provide appropriate next function here
+      />
     </div>
   );
 };
