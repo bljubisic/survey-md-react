@@ -15,7 +15,7 @@ const Example: FC<CallProps> = async ({ text }) => {
     .use(customPlugin);
 
   const modifiedText = await result.run(result.parse(text));
-  console.log(survey(modifiedText));
+  const page: any = survey(modifiedText);
   return (
     <div
       style={{
@@ -25,11 +25,15 @@ const Example: FC<CallProps> = async ({ text }) => {
         height: "100%",
       }}
     >
-      <SurveyNode
-        node={modifiedText as any}
-        context={{}} // Provide appropriate context object here
-        next={() => ({})} // Provide appropriate next function here
-      />
+      {page.children.map((child: any) => {
+        return (
+          <SurveyNode
+            node={child}
+            context={{}} // Provide appropriate context object here
+            next={() => ({})} // Provide appropriate next function here
+          />
+        );
+      })}
     </div>
   );
 };
