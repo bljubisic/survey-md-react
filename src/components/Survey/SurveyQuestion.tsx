@@ -156,7 +156,7 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
                         next={next}
                       />
                     </div>
-                    {matrix.map((nonused: any, j: number) => {
+                    {matrix.map((_: any, j: number) => {
                       const key = `row${i}_option${j}`;
                       const isChecked = selections[i]?.[key] || false;
                       return (
