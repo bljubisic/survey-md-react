@@ -11,7 +11,7 @@ interface RadioProps {
 export class Radio extends Component<RadioProps> {
   state = {};
   render() {
-    const { selected, onChange, text, value } = this.props;
+    const { selected, onChange, value } = this.props;
     return (
       <div
         className="modern-radio-container"
