@@ -1,0 +1,219 @@
+{
+  "type": "page",
+  "children": [
+    {
+      "type": "heading",
+      "depth": 2,
+      "children": [
+        {
+          "type": "text",
+          "value": "Hi! Please pick a number.",
+          "position": {
+            "start": { "line": 1, "column": 4, "offset": 3 },
+            "end": { "line": 1, "column": 29, "offset": 28 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 1, "column": 1, "offset": 0 },
+        "end": { "line": 1, "column": 29, "offset": 28 }
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "text",
+          "value": "(We shuffle them ",
+          "position": {
+            "start": { "line": 2, "column": 3, "offset": 31 },
+            "end": { "line": 2, "column": 20, "offset": 48 }
+          }
+        },
+        {
+          "type": "emphasis",
+          "children": [
+            {
+              "type": "text",
+              "value": "every time",
+              "position": {
+                "start": { "line": 2, "column": 21, "offset": 49 },
+                "end": { "line": 2, "column": 31, "offset": 59 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 2, "column": 20, "offset": 48 },
+            "end": { "line": 2, "column": 32, "offset": 60 }
+          }
+        },
+        {
+          "type": "text",
+          "value": ")",
+          "position": {
+            "start": { "line": 2, "column": 32, "offset": 60 },
+            "end": { "line": 2, "column": 33, "offset": 61 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 2, "column": 3, "offset": 31 },
+        "end": { "line": 2, "column": 33, "offset": 61 }
+      }
+    },
+    {
+      "type": "list",
+      "ordered": false,
+      "start": null,
+      "spread": false,
+      "children": [
+        {
+          "type": "listItem",
+          "spread": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "1337",
+                  "position": {
+                    "start": { "line": 5, "column": 3, "offset": 101 },
+                    "end": { "line": 5, "column": 7, "offset": 105 }
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 5, "column": 3, "offset": 101 },
+                "end": { "line": 5, "column": 7, "offset": 105 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 5, "column": 1, "offset": 99 },
+            "end": { "line": 5, "column": 7, "offset": 105 }
+          }
+        },
+        {
+          "type": "listItem",
+          "spread": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "link",
+                  "title": null,
+                  "url": "https://www.google.com/search?q=42",
+                  "children": [
+                    {
+                      "type": "text",
+                      "value": "42",
+                      "position": {
+                        "start": { "line": 6, "column": 4, "offset": 109 },
+                        "end": { "line": 6, "column": 6, "offset": 111 }
+                      }
+                    }
+                  ],
+                  "position": {
+                    "start": { "line": 6, "column": 3, "offset": 108 },
+                    "end": { "line": 6, "column": 43, "offset": 148 }
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 6, "column": 3, "offset": 108 },
+                "end": { "line": 6, "column": 43, "offset": 148 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 6, "column": 1, "offset": 106 },
+            "end": { "line": 6, "column": 43, "offset": 148 }
+          }
+        },
+        {
+          "type": "listItem",
+          "spread": false,
+          "checked": null,
+          "children": [
+            {
+              "type": "paragraph",
+              "children": [
+                {
+                  "type": "text",
+                  "value": "7±2",
+                  "position": {
+                    "start": { "line": 7, "column": 3, "offset": 151 },
+                    "end": { "line": 7, "column": 6, "offset": 154 }
+                  }
+                }
+              ],
+              "position": {
+                "start": { "line": 7, "column": 3, "offset": 151 },
+                "end": { "line": 7, "column": 6, "offset": 154 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 7, "column": 1, "offset": 149 },
+            "end": { "line": 7, "column": 6, "offset": 154 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 5, "column": 1, "offset": 99 },
+        "end": { "line": 7, "column": 6, "offset": 154 }
+      },
+      "question": {
+        "type": "question",
+        "value": "?mynumber matrix=\"agree, not agree\"",
+        "position": {
+          "start": { "line": 4, "column": 1, "offset": 63 },
+          "end": { "line": 4, "column": 36, "offset": 98 }
+        },
+        "name": "mynumber",
+        "params": { "matrix": "agree, not agree" }
+      }
+    },
+    {
+      "type": "paragraph",
+      "children": [
+        {
+          "type": "link",
+          "title": null,
+          "url": "+",
+          "children": [
+            {
+              "type": "text",
+              "value": "Submit",
+              "position": {
+                "start": { "line": 10, "column": 2, "offset": 168 },
+                "end": { "line": 10, "column": 8, "offset": 174 }
+              }
+            }
+          ],
+          "position": {
+            "start": { "line": 10, "column": 1, "offset": 167 },
+            "end": { "line": 10, "column": 12, "offset": 178 }
+          }
+        }
+      ],
+      "position": {
+        "start": { "line": 9, "column": 1, "offset": 156 },
+        "end": { "line": 10, "column": 12, "offset": 178 }
+      },
+      "condition": {
+        "type": "condition",
+        "value": "@ mynumber\n",
+        "position": {
+          "start": { "line": 9, "column": 1, "offset": 156 },
+          "end": { "line": 10, "column": 1, "offset": 167 }
+        },
+        "expr": "mynumber"
+      }
+    }
+  ]
+}

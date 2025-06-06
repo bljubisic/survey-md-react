@@ -1,8 +1,8 @@
+import { useState } from "react";
+import { Radio } from "./Radio";
 import type { NodeProps } from "./SurveyNode";
 import SurveyNode from "./SurveyNode";
 import styles from "./survey.module.css";
-
-<style></style>;
 
 const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
   const shuffleArray = (array: string | any[]) => {
@@ -29,6 +29,7 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
   };
 
   const check = (i: string | number, j: number | undefined = undefined) => {
+    console.log(i, j, selections);
     if (multi) {
       // @ts-ignore
       if (checked[i]) {
@@ -60,6 +61,11 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
           checked[i + "." + j] = true;
         }
       }
+      const key: string = `row${i}_option${j}`;
+      setSelections((prev) => ({
+        ...prev,
+        [i]: { [key]: true },
+      }));
     } else {
       checked = { [i]: true };
     }
@@ -87,10 +93,15 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
   }
 
   const multi = node.type === "list" && params && (params.min || params.max);
-  let matrix =
+  let matrix: [] =
     node.type === "list" && params && params.matrix && params.matrix.split(",");
+
+  console.log(matrix);
   const textValues = node.children.map(flatten);
-  let checked: { [key: string | number]: any } = {};
+  let checked: { [key: string]: boolean } = {};
+  const [selections, setSelections] = useState<
+    Record<number, Record<string, boolean>>
+  >({});
   const selected = context[node.question.name];
 
   if (selected === undefined) {
@@ -104,68 +115,120 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
     });
   }
 
-  const className = params.class || "";
+  const classname = params.class || "";
 
   const qname = node.question.name;
 
   return (
     <div>
-      {node.type === "list" &&
-        (matrix !== undefined && matrix.length > 0 ? (
+      {(node.type === "list" &&
+        (matrix && matrix.length > 0 ? (
           <ul
             id={qname}
             className={styles.matrix}
             style={{ ["--size" as any]: matrix ? matrix.length + 1 : 0 }}
           >
-            <div className="matrixli">
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(var(--size), 1fr)",
+                gap: "10px",
+              }}
+            >
               <div className="matrixTxt">
                 <p></p>
               </div>
-              {matrix.forEach((matrixLeg: any) => {
-                <div className="matrixTxt">
-                  <p>{matrixLeg}</p>
-                </div>;
+              {matrix.map((matrixLeg: string, index: number) => {
+                return (
+                  <div className="matrixTxt" key={index}>
+                    <p key={index}>{matrixLeg}</p>
+                  </div>
+                );
               })}
-              {node.children.forEach((child: any, i: number) => {
-                <div className={styles.matrixTxt}>
-                  <SurveyNode
-                    node={{ ...child.children[0], type: "text" }}
-                    context={context}
-                    next={next}
-                  />
-                </div>;
-                {
-                  matrix.forEach((nonused: any, j: number) => {
-                    <div className={styles.single}>
-                      <li
-                        onClick={() => check(i, j)}
-                        className={{ ...styles.single, ...styles.checked }}
-                        role="checkbox"
-                        aria-checked={checked[i + "." + j]}
-                      ></li>
-                    </div>;
-                  });
-                }
+              {node.children.map((child: any, i: number) => {
+                return (
+                  <>
+                    <div className="matrixTxt" key={i}>
+                      <SurveyNode
+                        key={i}
+                        node={{ ...child.children[0], type: "text" }}
+                        context={context}
+                        next={next}
+                      />
+                    </div>
+                    {matrix.map((nonused: any, j: number) => {
+                      const key = `row${i}_option${j}`;
+                      const isChecked = selections[i]?.[key] || false;
+                      return (
+                        <div className="single" key={i + j}>
+                          <Radio
+                            key={i + j}
+                            value={key}
+                            selected={isChecked}
+                            text={""}
+                            onChange={() => check(i, j)}
+                          />
+                        </div>
+                      );
+                    })}
+                  </>
+                );
               })}
             </div>
           </ul>
         ) : (
           <ul id={qname} className={multi ? styles.multi : styles.single}>
-            {node.children.forEach((child: any, i: number) => {
-              <li
-                onClick={() => check(i)}
-                className={styles.checked}
-                role="checkbox"
-                aria-checked={checked[i]}
-              >
-                <SurveyNode
-                  node={{ ...child.children[0], type: "text" }}
-                  context={context}
-                  next={next}
-                />
-              </li>;
+            {node.children.map((child: any, i: number) => {
+              return (
+                <li
+                  key={i}
+                  onClick={() => check(i)}
+                  className="checked"
+                  role="checkbox"
+                  aria-checked={checked[i]}
+                >
+                  <SurveyNode
+                    key={i}
+                    node={{ ...child.children[0], type: "text" }}
+                    context={context}
+                    next={next}
+                  />
+                </li>
+              );
             })}
           </ul>
+        ))) ||
+        (node.type === "paragraph" && (
+          <>
+            <p id={qname} className={`input ${classname}`}></p>
+            {params.rows ? (
+              <textarea
+                rows={params.rows}
+                placeholder={flatten(node)}
+                value={context[node.question.name]}
+              />
+            ) : !isNaN(params.min) || !isNaN(params.max) ? (
+              <input
+                type="number"
+                min={params.min}
+                max={params.max}
+                placeholder={flatten(node)}
+                value={context[node.question.name]}
+              />
+            ) : params.email ? (
+              <input
+                type="email"
+                placeholder={flatten(node)}
+                value={context[node.question.name]}
+              />
+            ) : (
+              <input
+                type="text"
+                placeholder={flatten(node)}
+                value={context[node.question.name]}
+              />
+            )}
+          </>
         ))}
     </div>
   );

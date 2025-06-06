@@ -6,7 +6,8 @@
   cursor: pointer;
   margin: 0.4em 0;
 }
-.single > li:before {
+
+.single-check {
   box-sizing: border-box;
   display: inline-block;
   content: "";
