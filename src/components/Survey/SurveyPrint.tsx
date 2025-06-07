@@ -1,7 +1,7 @@
 import { createFunction } from "./expression";
 import type { NodeProps } from "./SurveyNode";
 
-const SurveyPrint: React.FC<NodeProps> = ({ node, context, next }) => {
+const SurveyPrint: React.FC<NodeProps> = ({ node, context }) => {
   const print = createFunction(node.expr);
   let print_value = "";
 

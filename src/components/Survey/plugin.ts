@@ -1,4 +1,4 @@
-import { Root, type Literal, type Node, type Parent } from "mdast";
+import { type Literal, type Node, type Parent } from "mdast";
 
 const questionType = "question";
 const conditionType = "condition";
