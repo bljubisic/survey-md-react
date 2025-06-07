@@ -68,6 +68,11 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
       }));
     } else {
       checked = { [i]: true };
+      setSelections((prev) => ({
+        ...prev,
+        // eslint-disable-next-line no-useless-computed-key
+        [0]: { [i]: true },
+      }));
     }
     // @ts-ignore
     const val = textValues.filter(
@@ -156,7 +161,7 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
                         next={next}
                       />
                     </div>
-                    {matrix.map((_: any, j: number) => {
+                    {matrix.map((nonused: any, j: number) => {
                       const key = `row${i}_option${j}`;
                       const isChecked = selections[i]?.[key] || false;
                       return (
@@ -179,21 +184,25 @@ const SurveyQuestion: React.FC<NodeProps> = ({ node, context, next }) => {
         ) : (
           <ul id={qname} className={multi ? styles.multi : styles.single}>
             {node.children.map((child: any, i: number) => {
+              const isChecked = selections[0] || false;
               return (
-                <li
-                  key={i}
-                  onClick={() => check(i)}
-                  className="checked"
-                  role="checkbox"
-                  aria-checked={checked[i]}
-                >
+                <>
+                  <div className="single" key={i}>
+                    <Radio
+                      key={i}
+                      value={`${i}`}
+                      selected={isChecked[i] || false}
+                      text={""}
+                      onChange={() => check(i)}
+                    />
+                  </div>
                   <SurveyNode
                     key={i}
                     node={{ ...child.children[0], type: "text" }}
                     context={context}
                     next={next}
                   />
-                </li>
+                </>
               );
             })}
           </ul>
